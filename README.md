@@ -45,16 +45,16 @@ Skyway is a modern, high-performance Progressive Web Application (PWA) for fligh
 Follow these steps to run the Skyway platform locally:
 
 ### 1. Clone the repository
-```bash
-git clone [Insert your GitHub Repo URL Here]
+
+git clone https://github.com/awasthi-1425/skyway-flight-booking
 cd skyway
 2. Install Dependencies
-Bash
+
 npm install
 3. Environment Variables
 Create a .env.local file in the root directory based on the provided .env.example:
 
-Bash
+
 cp .env.example .env.local
 Update .env.local with your Supabase Project URL and Anon Key.
 
@@ -68,16 +68,16 @@ Copy and paste the contents of the migration/seed SQL files in sequential order.
 Execute the scripts to generate the tables, functions, dummy flights, and seats.
 
 5. Run the Development Server
-Bash
+
 npm run dev
 Open http://localhost:3000 in your browser to view the application.
 
 🔑 Test Credentials
 To evaluate the booking management dashboard without creating a new account, you can use the following seeded test user:
 
-Email: test@example.com
+Email: jawaasthi7@gmail.com
 
-Password: password123
+Password: Atlpa@12332
 
 (Note: Ensure you have run the database seed script to populate this user).
 
