@@ -53,6 +53,7 @@ cd skyway
 2. Install Dependencies
 ```
 npm install
+```
 3. Environment Variables
 
 Create a .env.local file in the root directory based on the provided .env.example:
@@ -74,6 +75,7 @@ Execute the scripts to generate the tables, functions, dummy flights, and seats.
 ```
 npm run dev
 ```
+
 Open http://localhost:3000 in your browser to view the application.
 
 🔑 Test Credentials
