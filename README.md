@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ✈️ Skyway - Premium Flight Booking Platform
 
-## Getting Started
+Skyway is a modern, high-performance Progressive Web Application (PWA) for flight booking. Built with Next.js, Supabase, and Tailwind CSS, it features a highly responsive "glassmorphic" dark-theme UI, real-time seat synchronization, and secure, atomic database transactions.
 
-First, run the development server:
+## 🔗 Live Links
+* **Live Deployment:** [Insert your Vercel Link Here]
+* **Lighthouse PWA Score:** See the `/public` folder for the >90 performance screenshot.
 
+---
+
+## 🚀 Core Features & Architecture (Evaluation Criteria)
+
+### 1. Schema, RLS & Atomic Operations
+* **Row Level Security (RLS):** Strict Supabase RLS policies ensure that users can only view, modify, and manage their own bookings.
+* **Atomic Transactions:** Cancellation and rescheduling logic are handled securely via PostgreSQL Remote Procedure Calls (RPCs) like `cancel_booking` and `reschedule_flight`. This prevents race conditions and ensures data integrity.
+* **DB-Level Validation:** The "2-hour before departure" modification lock is enforced natively at the database level, preventing any client-side bypass.
+
+### 2. Real-Time Seat Map UX
+* **Live Synchronization:** Utilizes Supabase Realtime channels to visually lock seats across all active clients the moment they are selected or booked.
+* **Intuitive Grid:** Seats are visually separated by cabin class (First, Business, Economy) with clear visual indicators for available, selected, and occupied states using a premium glassmorphism design language.
+
+### 3. State Management (Zustand)
+* **Store Design:** Application state is separated logically into `useFlightStore` (search, cart, passengers) and `useUserStore` (auth session).
+* **Security via `partialize`:** Zustand's `persist` middleware is used to save flight searches, but `partialize` is explicitly implemented to omit sensitive passenger data (e.g., Passport numbers, DOB) from `localStorage`.
+* **Clean Resets:** Custom reset functions wipe the cart and user state completely upon logout to prevent cross-session data leaks.
+
+### 4. Code Quality & Responsive Design
+* **Strict TypeScript:** Built with strict type interfaces (`Flight`, `Seat`, `Booking`) avoiding the use of `any` to ensure robust compilation.
+* **Mobile-First Glassmorphism:** Fully responsive on mobile, tablet, and desktop. The UI employs Tailwind CSS utility classes to achieve a unified, high-contrast dark mode aesthetic.
+* **PWA Enabled:** Configured with a web manifest and service worker, allowing mobile users to install the app directly to their home screens.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** Next.js (App Router), React, Tailwind CSS
+* **State Management:** Zustand
+* **Backend & Database:** Supabase (PostgreSQL, Auth, Realtime, RPCs)
+* **Date Formatting:** `date-fns`
+
+---
+
+## 💻 Local Setup Instructions
+
+Follow these steps to run the Skyway platform locally:
+
+### 1. Clone the repository
 ```bash
+git clone [Insert your GitHub Repo URL Here]
+cd skyway
+2. Install Dependencies
+Bash
+npm install
+3. Environment Variables
+Create a .env.local file in the root directory based on the provided .env.example:
+
+Bash
+cp .env.example .env.local
+Update .env.local with your Supabase Project URL and Anon Key.
+
+4. Database Setup & Seeding
+The database schema, RLS policies, and RPC functions are located in the /supabase/migrations directory.
+
+Open your Supabase Dashboard -> SQL Editor.
+
+Copy and paste the contents of the migration/seed SQL files in sequential order.
+
+Execute the scripts to generate the tables, functions, dummy flights, and seats.
+
+5. Run the Development Server
+Bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open http://localhost:3000 in your browser to view the application.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔑 Test Credentials
+To evaluate the booking management dashboard without creating a new account, you can use the following seeded test user:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Email: test@example.com
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Password: password123
 
-## Learn More
+(Note: Ensure you have run the database seed script to populate this user).
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Author: Siddhant Awasthi
