@@ -47,11 +47,13 @@ Follow these steps to run the Skyway platform locally:
 ### 1. Clone the repository
 
 git clone https://github.com/awasthi-1425/skyway-flight-booking
+```
 cd skyway
 2. Install Dependencies
-
+```
 npm install
 3. Environment Variables
+```
 Create a .env.local file in the root directory based on the provided .env.example:
 
 
@@ -68,7 +70,7 @@ Copy and paste the contents of the migration/seed SQL files in sequential order.
 Execute the scripts to generate the tables, functions, dummy flights, and seats.
 
 5. Run the Development Server
-
+```
 npm run dev
 Open http://localhost:3000 in your browser to view the application.
 
